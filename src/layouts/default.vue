@@ -1,0 +1,117 @@
+<template>
+  <q-layout view="lHh Lpr lFf">
+    <q-toolbar>
+      <q-toolbar-title>
+        <router-link to="/" class="text-red" style="text-decoration:none;">
+          <img class="q-mr-md" src="/statics/icons/favicon-32x32.png"/>Natal Coastal Synod
+        </router-link>
+      </q-toolbar-title>
+      <q-btn class="text-right text-red" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu">
+        <q-icon name="fas fa-bars" />
+      </q-btn>
+    </q-toolbar>
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+    <q-drawer side="right" v-model="rightDrawerOpen" bordered content-class="bg-grey-2">
+      <q-list>
+        <q-item-label v-if="$store.state.user" class="text-center header q-ma-md">{{$store.state.user.user.name}}</q-item-label>
+        <q-item to="/circuits">
+          <q-item-section avatar>
+            <q-icon name="fas fa-church" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Circuits</q-item-label>
+            <q-item-label caption>All circuits in the synod</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/diary">
+          <q-item-section avatar>
+            <q-icon name="fas fa-calendar-alt" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Diary</q-item-label>
+            <q-item-label caption>Synod events</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/directory">
+          <q-item-section avatar>
+            <q-icon name="fas fa-users" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Directory</q-item-label>
+            <q-item-label caption>Ministers, deacons etc</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="$store.state.user && $store.state.user.user.id === 1" to="/settings">
+          <q-item-section avatar>
+            <q-icon name="fas fa-cog" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Settings</q-item-label>
+            <q-item-label caption>settings for site</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/office">
+          <q-item-section avatar>
+            <q-icon name="fas fa-chess-bishop" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Synod office</q-item-label>
+            <q-item-label caption>Leadership & contact details</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="!$store.state.user" to="/phoneverification">
+          <q-item-section avatar>
+            <q-icon name="fas fa-sign-in-alt" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Login</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
+  </q-layout>
+</template>
+
+<script>
+export default {
+  name: 'MyLayout',
+  data () {
+    return {
+      rightDrawerOpen: this.$q.platform.is.desktop
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.commit('setUser', null)
+    }
+  },
+  mounted () {
+    if ((localStorage.getItem('SYNOD_phonetoken')) && (localStorage.getItem('SYNOD_verifiedphone'))) {
+      this.$q.loading.show({
+        message: 'Welcome! Logging you in...',
+        messageColor: 'white',
+        spinnerSize: 250, // in pixels
+        spinnerColor: 'white'
+      })
+      this.$axios.post(process.env.API + '/synodlogin',
+        {
+          phone: localStorage.getItem('SYNOD_verifiedphone'),
+          phonetoken: localStorage.getItem('SYNOD_phonetoken')
+        })
+        .then((response) => {
+          this.$store.commit('setUser', response.data)
+          this.$q.loading.hide()
+        })
+        .catch(function (error) {
+          console.log(error)
+          this.$q.loading.hide()
+        })
+    }
+  }
+}
+</script>
+
+<style>
+</style>
