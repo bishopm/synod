@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-toolbar>
       <q-toolbar-title>
-        <router-link to="/" class="text-red" style="text-decoration:none;">
+        <router-link to="/" class="text-black" style="text-decoration:none;">
           <img class="q-mr-md" src="/statics/icons/favicon-32x32.png"/>Natal Coastal Synod
         </router-link>
       </q-toolbar-title>
@@ -88,6 +88,23 @@ export default {
     }
   },
   mounted () {
+    if (localStorage.getItem('SYNOD_Version')) {
+      if (localStorage.getItem('SYNOD_Version') !== process.env.VERSION) {
+        this.$q.dialog({
+          title: 'New version available',
+          message: 'Click OK to restart the app and upgrade to version ' + process.env.VERSION + '. This new version includes: ' + process.env.VNOTES,
+          ok: 'OK',
+          cancel: 'LATER'
+        }).onOk(() => {
+          localStorage.setItem('SYNOD_Version', process.env.VERSION)
+          window.location.reload()
+        }).onCancel(() => {
+          console.log('Delaying upgrade')
+        })
+      }
+    } else {
+      localStorage.setItem('SYNOD_Version', process.env.VERSION)
+    }
     if ((localStorage.getItem('SYNOD_phonetoken')) && (localStorage.getItem('SYNOD_verifiedphone'))) {
       this.$q.loading.show({
         message: 'Welcome! Logging you in...',

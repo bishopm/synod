@@ -28,6 +28,7 @@ export default {
               var phone = '0' + authResult.user.phoneNumber.substr(authResult.user.phoneNumber.length - 9)
               localStorage.setItem('SYNOD_verifiedphone', phone)
               localStorage.setItem('SYNOD_phonetoken', authResult.user.uid)
+              window.location.reload()
             }
           }
         }

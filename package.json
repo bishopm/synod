@@ -1,8 +1,8 @@
 {
-  "name": "synod",
+  "name": "Synod",
   "version": "0.0.1",
-  "description": "Synod website",
-  "productName": "Synod site",
+  "description": "Natal Coastal Synod",
+  "productName": "Natal Coastal Synod",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Michael Bishop <michael@goodworx.co.za>",
   "private": true,

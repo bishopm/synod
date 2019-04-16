@@ -10,7 +10,7 @@
         <q-item-label>{{minister.individual.title}} {{minister.individual.firstname}}  <b>{{minister.individual.surname}}</b></q-item-label>
         <q-item-label v-if="minister.circuit.circuit"><router-link :to="'/circuits/' + minister.circuit.id">{{minister.circuit.circuit}}</router-link></q-item-label>
         <q-item-label v-else>{{minister.circuit.district}} Synod</q-item-label>
-        <q-item-label v-if="$store.state.user.person.status === 'minister'">{{minister.individual.cellphone}}</q-item-label>
+        <q-item-label v-if="$store.state.user && $store.state.user.person.status === 'minister'">{{minister.individual.cellphone}}</q-item-label>
       </q-item-section>
     </q-item>
   </div>

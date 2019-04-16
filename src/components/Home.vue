@@ -2,6 +2,7 @@
   <div class="q-ma-md">
     <p class="header q-mb-md text-center">{{welcome}}</p>
     <leafletclustermap v-if="showmap" :rawbounds="bounds" :markers="markers"></leafletclustermap>
+    <div class="text-center header q-ma-md" v-else>Loading Synod map ...</div>
   </div>
 </template>
 

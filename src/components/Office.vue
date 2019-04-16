@@ -1,13 +1,15 @@
 <template>
   <div v-if="district" class="q-ma-md">
-    <div class="header text-center q-ma-md text-bold">Synod office</div>
-    <leafletmap v-if="district.location" :latitude="district.location.latitude" :longitude="district.location.longitude" :popuplabel="district.district + ' ' + district.denomination.provincial + ' Office'" editable="no"></leafletmap>
-    <p class="q-mt-md">Address: {{district.address}}</p>
-    <p class="q-mb-md">Phone: {{district.phone}}</p>
+    <div v-if="district.location" class="header text-center q-ma-md text-bold">Synod office</div>
+    <leafletmap :latitude="district.location.latitude" :longitude="district.location.longitude" :popuplabel="district.district + ' ' + district.denomination.provincial + ' Office'" editable="no"></leafletmap>
+    <p class="q-mt-md">
+      Address: {{district.location.address}}<br>
+      Phone: {{district.location.phone}}
+    </p>
     <q-list>
       <q-item v-for="person in district.people" :key="person.id">
         <q-item-section avatar>
-          <img v-if="person.individual.image" class="q-mr-md" style="border-radius: 50%;" height="100px" :src="url + person.individual.image">
+          <img v-if="person.individual.image && url" class="q-mr-md" style="border-radius: 50%;" height="100px" :src="url + person.individual.image">
           <img v-else class="q-mr-md" height="100px" :src="blankpic">
         </q-item-section>
         <q-item-section>
@@ -34,6 +36,7 @@ export default {
     'leafletmap': leafletmap
   },
   mounted () {
+    this.url = process.env.WEB + '/vendor/bishopm/images/profile/'
     this.$axios.get(process.env.API + '/districts/' + this.$store.state.district + '/details')
       .then((response) => {
         this.blankpic = process.env.WEB + '/vendor/bishopm/images/face.png'

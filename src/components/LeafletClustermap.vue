@@ -39,7 +39,7 @@ export default {
       ],
       token: 'pk.eyJ1IjoiYmlzaG9wbSIsImEiOiJjanNjenJ3MHMwcWRyM3lsbmdoaDU3ejI5In0.M1x6KVBqYxC2ro36_Ipz_w',
       zoom: 13,
-      maxZoom: 20,
+      maxZoom: 16,
       icon: null
     }
   },

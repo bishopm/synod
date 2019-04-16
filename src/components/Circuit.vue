@@ -1,24 +1,24 @@
 <template>
   <div v-if="circuit" class="layout-padding">
-    <h5 class="text-center">
+    <h5 class="text-center text-grey">
       {{circuit.circuitnumber}} {{circuit.circuit}}<br>
-      <small><a target="_blank" :href="planurl">Current preaching plan</a></small>
+      <small><a class="text-primary" target="_blank" :href="planurl">Current preaching plan</a></small>
     </h5>
     <div class="row">
       <div class="col-shrink col-xs-12 col-sm-12 col-md-6">
-        <q-list>
+        <q-list class="text-center  ">
           <q-item-label class="text-center" header>Societies</q-item-label>
-          <q-item v-for="society in circuit.societies" :key="society.id" :to="'/societies/' + society.id">
-            {{society.society}}
-          </q-item>
+          <q-badge class="q-pa-xs q-ma-xs" v-for="society in circuit.societies" :key="society.id">
+            <router-link class="text-white" :to="'/societies/' + society.id">{{society.society}}</router-link>
+          </q-badge>
         </q-list>
       </div>
       <div class="col col-xs-12 col-sm-12 col-md-6">
         <q-item-label class="text-center" v-if="circuit.ministers.length" header>Staff</q-item-label>
         <q-list>
-          <q-item v-for="minister in circuit.ministers" :key="minister.id">
+          <q-item class="compact" v-for="minister in circuit.ministers" :key="minister.id">
             {{minister.individual.title}} {{minister.individual.firstname}} {{minister.individual.surname}}
-            <q-badge class="q-mx-xs" v-for="tag in minister.tags" :key="tag.id">{{tag.name}}</q-badge>
+            <q-badge class="q-mx-xs q-pa-xs" v-for="tag in minister.tags" :key="tag.id">{{tag.name}}</q-badge>
           </q-item>
         </q-list>
         <leafletclustermap class="q-mt-md" v-if="showmap" :rawbounds="bounds" :markers="markers"></leafletclustermap>
@@ -61,7 +61,14 @@ export default {
 </script>
 
 <style>
-.q-item {
+.compact {
   min-height: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 6px;
+}
+h5 {
+  margin-block-start: 5px;
+  margin-block-end: 0px;
 }
 </style>

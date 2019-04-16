@@ -2,7 +2,7 @@
   <div v-if="circuits" class="q-ma-md">
     <q-list striped>
       <q-item-label header class="text-center">Circuits</q-item-label>
-      <q-item v-for="circuit in circuits" :key="circuit.id" :to="'/circuits/' + circuit.id">
+      <q-item class="compact" v-for="circuit in circuits" :key="circuit.id" :to="'/circuits/' + circuit.id">
         {{circuit.circuitnumber}} {{circuit.circuit}}
       </q-item>
     </q-list>
@@ -29,7 +29,9 @@ export default {
 </script>
 
 <style>
-.q-item {
+.compact {
   min-height: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 </style>

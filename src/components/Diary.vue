@@ -1,5 +1,5 @@
 <template>
-  <div v-if="meetings" class="q-ma-md">
+  <div v-if="meetings.length" class="q-ma-md">
     <q-list striped>
       <q-item-label header class="text-center">Synod diary</q-item-label>
       <q-item v-for="meeting in meetings" :key="meeting.id">
