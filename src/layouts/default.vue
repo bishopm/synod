@@ -15,7 +15,7 @@
     </q-page-container>
     <q-drawer side="right" v-model="rightDrawerOpen" bordered content-class="bg-grey-2">
       <q-list>
-        <q-item-label v-if="$store.state.user" class="text-center header q-ma-md">{{$store.state.user.user.name}}</q-item-label>
+        <q-item-label v-if="$store.state.user" class="text-center bg-black text-white q-pa-md">{{$store.state.user.user.name}}</q-item-label>
         <q-item to="/circuits">
           <q-item-section avatar>
             <q-icon name="fas fa-church" />

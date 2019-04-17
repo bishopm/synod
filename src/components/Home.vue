@@ -32,7 +32,7 @@ export default {
   },
   mounted () {
     this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
-    this.$axios.get(process.env.API + '/districts/' + this.$store.state.district)
+    this.$axios.get(process.env.API + '/districts/map/' + this.$store.state.district)
       .then((response) => {
         this.district = response.data.district
         this.markers = response.data.markers

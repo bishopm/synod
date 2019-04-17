@@ -1,6 +1,6 @@
 // Configuration for your app
-var version = JSON.stringify('0.1.3')
-var vnotes = JSON.stringify('Improved data caching')
+var version = JSON.stringify('0.1.6')
+var vnotes = JSON.stringify('API fixes')
 
 module.exports = function (ctx) {
   return {

@@ -16,9 +16,8 @@
       <div class="col col-xs-12 col-sm-12 col-md-6">
         <q-item-label class="text-center" v-if="circuit.ministers.length" header>Staff</q-item-label>
         <q-list>
-          <q-item class="compact" v-for="minister in circuit.ministers" :key="minister.id">
-            {{minister.individual.title}} {{minister.individual.firstname}} {{minister.individual.surname}}
-            <q-badge class="q-mx-xs q-pa-xs bg-secondary" v-for="tag in minister.tags" :key="tag.id">{{tag.name}}</q-badge>
+          <q-item class="compact" v-for="minister in ministers" :key="minister">
+            {{minister}}
           </q-item>
         </q-list>
         <leafletclustermap class="q-mt-md" v-if="showmap" :rawbounds="bounds" :markers="markers"></leafletclustermap>
@@ -33,7 +32,7 @@ export default {
   data () {
     return {
       circuit: {},
-      perm: '',
+      ministers: [],
       markers: [],
       bounds: [],
       showmap: false,
@@ -45,9 +44,10 @@ export default {
   },
   mounted () {
     this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
-    this.$axios.get(process.env.API + '/circuits/' + this.$route.params.id)
+    this.$axios.get(process.env.API + '/circuits/map/' + this.$route.params.id)
       .then((response) => {
         this.circuit = response.data.circuit
+        this.ministers = response.data.ministers
         this.planurl = process.env.WEB + '/plan/' + this.circuit.slug
         this.markers = response.data.markers
         this.showmap = true

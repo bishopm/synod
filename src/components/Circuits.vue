@@ -28,7 +28,7 @@ export default {
   mounted () {
     this.$axios.get(process.env.API + '/districts/' + this.$store.state.district)
       .then((response) => {
-        this.circuits = response.data.circuits
+        this.circuits = response.data
       })
       .catch(function (error) {
         console.log(error)

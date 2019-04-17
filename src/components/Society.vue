@@ -3,16 +3,15 @@
     <leafletmap v-if="society.location" :latitude="society.location.latitude" :longitude="society.location.longitude" :popuplabel="society.society + ' Methodist Church'" editable="no"></leafletmap>
     <div v-if="society" class="text-center layout-padding">
       <h4>
-        {{society.society}} <q-icon v-if="perm === 'admin'" class="cursor-pointer" @click.native="editSociety()" name="fas fa-edit"></q-icon>
+        {{society.society}}
       </h4>
-      <p v-for="service in society.services" :key="service.id">{{service.servicetime}} ({{service.language}})
-        <q-icon v-if="perm === 'edit'" class="cursor-pointer" @click.native="editService(service.id)" name="fas fa-edit"></q-icon>
-      </p>
+      <p v-for="service in society.services" :key="service.id">
+        {{service.servicetime}} ({{service.language}})
+      </p><br>
       <p v-if="noservices">No services have been added yet</p>
-      <q-btn v-if="perm === 'edit'" @click="addService()" color="primary">Add a service</q-btn>
-      <div v-if="society.location.address">{{society.location.address}}</div>
-      <div v-if="society.location.phone">{{society.location.phone}}</div>
-      <div v-if="society.website"><a target="_blank" :href="society.website">{{society.website}}</a></div>
+      <div v-if="society.location.address"><q-icon name="fa fa-fw fa-map-marked-alt" class="text-red q-mr-md"></q-icon>{{society.location.address}}</div>
+      <div v-if="society.location.phone"><q-icon name="fa fa-fw fa-phone" class="text-red q-mr-md"></q-icon>{{society.location.phone}}</div>
+      <div v-if="society.website"><q-icon name="fa fa-fw fa-globe" class="text-red q-mr-md"></q-icon><a class="text-red" target="_blank" :href="society.website">{{society.website}}</a></div>
     </div>
   </div>
 </template>
@@ -23,8 +22,7 @@ export default {
   data () {
     return {
       society: {},
-      noservices: false,
-      perm: ''
+      noservices: false
     }
   },
   components: {

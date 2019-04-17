@@ -3,8 +3,8 @@
     <div v-if="district.location" class="header text-center q-ma-md text-bold">Synod office</div>
     <leafletmap :latitude="district.location.latitude" :longitude="district.location.longitude" :popuplabel="district.district + ' ' + district.denomination.provincial + ' Office'" editable="no"></leafletmap>
     <p class="q-mt-md">
-      Address: {{district.location.address}}<br>
-      Phone: {{district.location.phone}}
+      <q-icon name="fa fa-fw fa-map-marked-alt" class="text-red q-mr-md"></q-icon>Address: {{district.location.address}}<br>
+      <q-icon name="fa fa-fw fa-phone" class="text-red q-mr-md"></q-icon>Phone: {{district.location.phone}}
     </p>
     <q-list>
       <q-item v-for="person in district.people" :key="person.id">
