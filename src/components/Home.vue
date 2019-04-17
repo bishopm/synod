@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 import leafletclustermap from './LeafletClustermap'
 export default {
   data () {
@@ -20,6 +21,14 @@ export default {
   },
   components: {
     'leafletclustermap': leafletclustermap
+  },
+  mixins: [saveState],
+  methods: {
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Home'
+      }
+    }
   },
   mounted () {
     this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token

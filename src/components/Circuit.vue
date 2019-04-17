@@ -18,7 +18,7 @@
         <q-list>
           <q-item class="compact" v-for="minister in circuit.ministers" :key="minister.id">
             {{minister.individual.title}} {{minister.individual.firstname}} {{minister.individual.surname}}
-            <q-badge class="q-mx-xs q-pa-xs" v-for="tag in minister.tags" :key="tag.id">{{tag.name}}</q-badge>
+            <q-badge class="q-mx-xs q-pa-xs bg-secondary" v-for="tag in minister.tags" :key="tag.id">{{tag.name}}</q-badge>
           </q-item>
         </q-list>
         <leafletclustermap class="q-mt-md" v-if="showmap" :rawbounds="bounds" :markers="markers"></leafletclustermap>

@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:300px;">
-    <l-map ref="map" :bounds="bounds" :zoom="zoom" :maxZoom="maxZoom" style="height: 400px; width: 100%">
+    <l-map ref="map" :bounds="bounds" :padding="[30, 30]" :zoom="zoom" :maxZoom="maxZoom" style="height: 400px; width: 100%">
       <l-control-layers />
       <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name" :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution" :token="token" :options="tileProvider.options" layerType="base"/>
       <l-marker v-for="marker in markers" :key="marker.title.society.id" :lat-lng="getcoords(marker)" :icon="icon" :draggable="false">

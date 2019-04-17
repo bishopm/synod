@@ -10,10 +10,19 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 export default {
   data () {
     return {
       circuits: []
+    }
+  },
+  mixins: [saveState],
+  methods: {
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Circuits'
+      }
     }
   },
   mounted () {

@@ -8,7 +8,7 @@
       </q-item-section>
       <q-item-section top>
         <q-item-label>{{minister.individual.title}} {{minister.individual.firstname}}  <b>{{minister.individual.surname}}</b></q-item-label>
-        <q-item-label v-if="minister.circuit.circuit"><router-link :to="'/circuits/' + minister.circuit.id">{{minister.circuit.circuit}}</router-link></q-item-label>
+        <q-item-label v-if="minister.circuit.circuit"><router-link class="text-primary" :to="'/circuits/' + minister.circuit.id">{{minister.circuit.circuit}}</router-link></q-item-label>
         <q-item-label v-else>{{minister.circuit.district}} Synod</q-item-label>
         <q-item-label v-if="$store.state.user && $store.state.user.person.status === 'minister'">{{minister.individual.cellphone}}</q-item-label>
       </q-item-section>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 export default {
   data () {
     return {
@@ -26,8 +27,13 @@ export default {
       blankpic: ''
     }
   },
-  computed: {
-
+  mixins: [saveState],
+  methods: {
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Directory'
+      }
+    }
   },
   mounted () {
     this.$axios.post(process.env.API + '/districts/directory',

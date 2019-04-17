@@ -24,12 +24,21 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 import leafletmap from './Leafletmap'
 export default {
   data () {
     return {
       district: {},
       blankpic: ''
+    }
+  },
+  mixins: [saveState],
+  methods: {
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Office'
+      }
     }
   },
   components: {

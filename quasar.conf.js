@@ -1,6 +1,6 @@
 // Configuration for your app
-var version = JSON.stringify('0.1.2')
-var vnotes = JSON.stringify('Set maximum map zoom')
+var version = JSON.stringify('0.1.3')
+var vnotes = JSON.stringify('Improved data caching')
 
 module.exports = function (ctx) {
   return {

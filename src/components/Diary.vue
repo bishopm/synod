@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 export default {
   data () {
     return {
@@ -31,8 +32,14 @@ export default {
     formatme (datein) {
       var fin = new Date(datein * 1000)
       return fin.toString().substring(4, 21)
+    },
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Diary'
+      }
     }
   },
+  mixins: [saveState],
   mounted () {
     this.$axios.post(process.env.API + '/meetings/search',
       {
