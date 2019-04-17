@@ -12,7 +12,8 @@ const routes = [
       { name: 'office', path: '/office', component: () => import('components/Office') },
       { name: 'phoneverification', path: '/phoneverification', component: () => import('components/Phoneverification') },
       { name: 'settings', path: '/settings', component: () => import('components/Settings') },
-      { name: 'society', path: '/societies/:id', component: () => import('components/Society') }
+      { name: 'society', path: '/societies/:id', component: () => import('components/Society') },
+      { name: 'synod', path: '/synods/:year', component: () => import('components/Synod') }
     ]
   }
 ]

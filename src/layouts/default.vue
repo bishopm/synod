@@ -36,7 +36,7 @@
         </q-item>
         <q-item to="/directory">
           <q-item-section avatar>
-            <q-icon name="fas fa-users" />
+            <q-icon name="fas fa-address-book" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Directory</q-item-label>
@@ -61,6 +61,15 @@
             <q-item-label caption>Leadership & contact details</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item :to="'/synods/' + synodyear">
+          <q-item-section avatar>
+            <q-icon name="fas fa-users" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{synodyear}} Synod</q-item-label>
+            <q-item-label caption>Agenda and documents</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item v-if="!$store.state.user" to="/phoneverification">
           <q-item-section avatar>
             <q-icon name="fas fa-sign-in-alt" />
@@ -79,7 +88,8 @@ export default {
   name: 'MyLayout',
   data () {
     return {
-      rightDrawerOpen: this.$q.platform.is.desktop
+      rightDrawerOpen: this.$q.platform.is.desktop,
+      synodyear: ''
     }
   },
   methods: {
@@ -88,6 +98,7 @@ export default {
     }
   },
   mounted () {
+    this.synodyear = new Date().getFullYear()
     if (localStorage.getItem('SYNOD_Version')) {
       if (localStorage.getItem('SYNOD_Version') !== process.env.VERSION) {
         this.$q.dialog({
