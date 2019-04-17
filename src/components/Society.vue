@@ -10,7 +10,9 @@
       </p>
       <p v-if="noservices">No services have been added yet</p>
       <q-btn v-if="perm === 'edit'" @click="addService()" color="primary">Add a service</q-btn>
-      <div v-if="society.website"><a target="_blank" :href="websiteurl">{{society.website}}</a></div>
+      <div v-if="society.location.address">{{society.location.address}}</div>
+      <div v-if="society.location.phone">{{society.location.phone}}</div>
+      <div v-if="society.website"><a target="_blank" :href="'http://' + society.website">{{society.website}}</a></div>
     </div>
   </div>
 </template>
