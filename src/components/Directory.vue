@@ -50,6 +50,7 @@ export default {
     }
   },
   mounted () {
+    this.search = ''
     this.$axios.post(process.env.API + '/districts/directory',
       {
         id: 7
