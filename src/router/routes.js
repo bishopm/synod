@@ -8,6 +8,7 @@ const routes = [
       { name: 'circuits', path: '/circuits', component: () => import('components/Circuits') },
       { name: 'diary', path: '/diary', component: () => import('components/Diary') },
       { name: 'directory', path: '/directory', component: () => import('components/Directory') },
+      { name: 'document', path: '/document', component: () => import('components/Document') },
       { name: 'home', path: '/', component: () => import('components/Home') },
       { name: 'office', path: '/office', component: () => import('components/Office') },
       { name: 'phoneverification', path: '/phoneverification', component: () => import('components/Phoneverification') },
