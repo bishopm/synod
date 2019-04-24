@@ -1,26 +1,17 @@
 <template>
   <div class="q-ma-md">
     <p class="header q-mb-md text-center">{{welcome}}</p>
-    <leafletclustermap v-if="showmap" :rawbounds="bounds" :markers="markers"></leafletclustermap>
-    <div class="text-center header q-ma-md" v-else>Loading Synod map ...</div>
   </div>
 </template>
 
 <script>
 import saveState from 'vue-save-state'
-import leafletclustermap from './LeafletClustermap'
 export default {
   data () {
     return {
       welcome: '',
-      district: {},
-      markers: [],
-      bounds: [],
-      showmap: false
+      district: {}
     }
-  },
-  components: {
-    'leafletclustermap': leafletclustermap
   },
   mixins: [saveState],
   methods: {

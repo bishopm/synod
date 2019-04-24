@@ -16,12 +16,30 @@
     <q-drawer side="right" v-model="rightDrawerOpen" bordered content-class="bg-grey-2">
       <q-list>
         <q-item-label v-if="$store.state.user" class="text-center bg-black text-white q-pa-md">{{$store.state.user.user.name}}</q-item-label>
+        <q-item to="/about">
+          <q-item-section avatar>
+            <q-icon name="fas fa-info-circle" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>About</q-item-label>
+            <q-item-label caption>About our synod</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item :to="'/synods/' + synodyear">
+          <q-item-section avatar>
+            <q-icon name="fas fa-users" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>{{synodyear}} Synod</q-item-label>
+            <q-item-label caption>Agenda and documents</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item to="/circuits">
           <q-item-section avatar>
             <q-icon name="fas fa-church" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Circuits</q-item-label>
+            <q-item-label overline>Circuits</q-item-label>
             <q-item-label caption>All circuits in the synod</q-item-label>
           </q-item-section>
         </q-item>
@@ -30,7 +48,7 @@
             <q-icon name="fas fa-calendar-alt" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Diary</q-item-label>
+            <q-item-label overline>Diary</q-item-label>
             <q-item-label caption>Synod events</q-item-label>
           </q-item-section>
         </q-item>
@@ -39,7 +57,7 @@
             <q-icon name="fas fa-address-book" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Directory</q-item-label>
+            <q-item-label overline>Directory</q-item-label>
             <q-item-label caption>Ministers, deacons etc</q-item-label>
           </q-item-section>
         </q-item>
@@ -48,26 +66,8 @@
             <q-icon name="fas fa-cog" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Settings</q-item-label>
+            <q-item-label overline>Settings</q-item-label>
             <q-item-label caption>settings for site</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item to="/office">
-          <q-item-section avatar>
-            <q-icon name="fas fa-chess-bishop" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Synod office</q-item-label>
-            <q-item-label caption>Leadership & contact details</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item :to="'/synods/' + synodyear">
-          <q-item-section avatar>
-            <q-icon name="fas fa-users" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{synodyear}} Synod</q-item-label>
-            <q-item-label caption>Agenda and documents</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="!$store.state.user" to="/phoneverification">
@@ -75,7 +75,7 @@
             <q-icon name="fas fa-sign-in-alt" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Login</q-item-label>
+            <q-item-label overline>Login</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
