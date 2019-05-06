@@ -14,9 +14,14 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     state: {
       token: null,
-      district: 7
+      district: 7,
+      admin: false,
+      user: null
     },
     mutations: {
+      setAdmin (state, newadmin) {
+        state.admin = newadmin
+      },
       setToken (state, newtoken) {
         state.token = newtoken
       },

@@ -1,6 +1,9 @@
 <template>
   <div class="q-ma-md">
     <p class="header q-mb-md text-center">{{welcome}}</p>
+    <div class="q-ma-md">
+      <img width="100%" src="statics/cover.jpg"/>
+    </div>
   </div>
 </template>
 

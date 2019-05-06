@@ -1,6 +1,6 @@
 // Configuration for your app
-var version = JSON.stringify('0.1.6')
-var vnotes = JSON.stringify('API fixes')
+var version = JSON.stringify('0.1.7')
+var vnotes = JSON.stringify('Add synod docs, agenda')
 
 module.exports = function (ctx) {
   return {
@@ -29,12 +29,15 @@ module.exports = function (ctx) {
 
       components: [
         'QBadge',
+        'QDate',
         'QField',
         'QLayout',
         'QHeader',
+        'QExpansionItem',
         'QDrawer',
         'QPageContainer',
         'QPage',
+        'QPopupProxy',
         'QSelect',
         'QSeparator',
         'QTab',
@@ -49,7 +52,8 @@ module.exports = function (ctx) {
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel',
+        'QUploader'
       ],
 
       directives: [
