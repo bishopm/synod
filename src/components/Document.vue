@@ -1,6 +1,6 @@
 <template>
   <div class="container q-pa-lg">
-    <q-pdfviewer v-model="show" src="https://church.net.za/plan/lower-tugela" content-class="absolute"/>
+    <q-pdfviewer v-model="show" :src="src" content-class="absolute"/>
   </div>
 </template>
 
@@ -8,8 +8,12 @@
 export default {
   data () {
     return {
-      show: true
+      show: true,
+      src: ''
     }
+  },
+  mounted () {
+    this.src = 'http://localhost/churchnet/public/vendor/bishopm/docs/' + this.$route.params.src
   }
 }
 </script>

@@ -57,7 +57,7 @@
           </div>
         </q-expansion-item>
         <q-list>
-          <q-item v-for="document in synod.documents" :key="document.id">
+          <q-item v-for="document in synod.documents" :key="document.id" :to="'/document/' + document.url">
             {{document.title}}
           </q-item>
         </q-list>
