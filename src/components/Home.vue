@@ -1,9 +1,9 @@
 <template>
   <div class="q-ma-md">
-    <p class="header q-mb-md text-center">{{welcome}}</p>
     <div class="q-ma-md">
-      <img width="100%" src="statics/cover.jpg"/>
+      <img width="100%" src="statics/cover.png"/>
     </div>
+    <p class="header q-my-lg text-center">{{welcome}}</p>
   </div>
 </template>
 
@@ -29,9 +29,6 @@ export default {
     this.$axios.get(process.env.API + '/districts/map/' + this.$store.state.district)
       .then((response) => {
         this.district = response.data.district
-        this.markers = response.data.markers
-        this.showmap = true
-        this.bounds = response.data.bounds
         this.welcome = 'Welcome to the ' + this.district.district + ' ' + this.district.denomination.provincial
       })
       .catch(function (error) {

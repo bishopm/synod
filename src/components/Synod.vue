@@ -1,9 +1,6 @@
 <template>
   <div class="q-ma-md">
-    <div v-if="synod" class="header text-center">{{$route.params.year}} Synod <small class="text-grey">{{synod.circuit.circuit}}</small>
-      <q-btn v-if="$store.state.admin" class="q-ml-md" color="primary" icon="fa fa-plus" round size="sm" @click="addContent"></q-btn>
-    </div>
-    <div v-else class="header text-center">{{$route.params.year}} Synod</div>
+    <div class="header text-center">{{$route.params.year}} Synod <small class="text-grey">{{circuit}}</small></div>
     <q-tabs v-model="tab" dense class="text-grey q-mt-md" active-color="primary" indicator-color="primary" align="justify" narrow-indicator>
       <q-tab name="agenda" label="Agenda" />
       <q-tab name="documents" label="Documents" />
@@ -16,18 +13,19 @@
             <q-input outlined hide-bottom-space error-message="Description is required" label="Description" v-model="agenda.description" />
           </div>
           <div class="q-ma-md">
-            <q-select label="Venue" outlined v-model="agenda.venue" :options="[{ label: 'female', value: 'female' }, { label: 'male', value: 'male' }]" map-options emit-value/>
+            <q-select label="Date" outlined v-model="agenda.agendadate" :options="dateOptions" map-options emit-value/>
           </div>
           <div class="q-ma-md">
-            <q-input outlined label="Date and time" v-model="agenda.meetingdatetime" mask="datetime">
+            <q-input outlined label="Start time" v-model="agenda.agendatime" mask="time" :rules="['time']">
               <template v-slot:append>
-                <q-icon name="fa fa-calendar" class="cursor-pointer">
+                <q-icon name="fa fa-clock" class="cursor-pointer">
                   <q-popup-proxy>
-                    <q-date v-model="agenda.meetingdatetime" />
+                    <q-time v-model="agenda.agendatime" />
                   </q-popup-proxy>
                 </q-icon>
               </template>
             </q-input>
+            <q-btn @click="submitAgenda" color="primary" label="OK"/><q-btn class="q-ml-md" @click="aexpanded = false" color="grey" label="Cancel"/>
           </div>
         </q-expansion-item>
         <q-list v-if="synod.agendaitems">
@@ -40,7 +38,7 @@
             </q-item-section>
             <q-item-section>
               <div class="text-right">
-                {{agenda.description}} (<router-link :to="'/societies/' + agenda.society.id">{{agenda.society.society}}</router-link>)
+                {{agenda.description}}
               </div>
             </q-item-section>
           </q-item>
@@ -56,8 +54,9 @@
             <q-uploader :url="url" name="doc" :multiple="false" color="red" flat bordered style="width: 100%"/>
           </div>
         </q-expansion-item>
+        <div class="col-12 q-mx-md"><q-input autofocus placeholder="Search for a document" @input="updateFilter" v-model="search" /></div>
         <q-list>
-          <q-item v-for="document in synod.documents" :key="document.id" :to="'/document/' + document.url">
+          <q-item v-for="document in filteredDocuments" :key="document.id" :to="'/document/' + document.url">
             {{document.title}}
           </q-item>
         </q-list>
@@ -76,12 +75,20 @@ export default {
   data () {
     return {
       aexpanded: false,
+      circuit: '',
+      dateOptions: [],
       dexpanded: false,
+      filteredDocuments: [],
       items: [],
       synod: {},
       tab: 'agenda',
-      agenda: {},
+      agenda: {
+        description: '',
+        agendadate: '',
+        agendatime: ''
+      },
       doc: {},
+      search: '',
       url: process.env.API + '/documents/upload'
     }
   },
@@ -97,6 +104,32 @@ export default {
     },
     addContent () {
       console.log('adding')
+    },
+    updateFilter () {
+      if (this.search === '') {
+        this.filteredDocuments = this.synod.documents
+      } else {
+        this.filteredDocuments = []
+        for (var dndx in this.synod.documents) {
+          if ((this.synod.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase())) || (this.synod.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase()))) {
+            this.filteredDocuments.push(this.synod.documents[dndx])
+          }
+        }
+      }
+    },
+    submitAgenda () {
+      this.aexpanded = false
+      this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
+      this.$axios.post(process.env.API + '/agendaitems',
+        {
+          agenda: this.agenda
+        })
+        .then(response => {
+          this.synod.agendaitems.push(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   },
   mixins: [saveState],
@@ -107,7 +140,12 @@ export default {
         synodyear: this.$route.params.year
       })
       .then(response => {
-        this.synod = response.data
+        this.synod = response.data.synod
+        this.circuit = this.synod.circuit.circuit
+        this.dateOptions = response.data.days
+        this.filteredDocuments = this.synod.documents
+        this.agenda.description = ''
+        this.agenda.agendatime = ''
       })
       .catch(function (error) {
         console.log(error)
@@ -117,4 +155,8 @@ export default {
 </script>
 
 <style>
+.q-item {
+  min-height: 0px;
+  padding-bottom: 0px;
+}
 </style>

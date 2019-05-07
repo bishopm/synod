@@ -131,6 +131,7 @@ export default {
         .then((response) => {
           this.$store.commit('setUser', response.data)
           this.$store.commit('setAdmin', response.data.admin)
+          this.$store.commit('setToken', response.data.token)
           this.$q.loading.hide()
         })
         .catch(function (error) {
