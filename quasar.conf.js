@@ -1,6 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.1.7')
-var vnotes = JSON.stringify('Add synod docs, agenda')
+var version = JSON.stringify('0.2.3')
+var synod = JSON.stringify('7')
+var vnotes = JSON.stringify('Image zoom fixed')
 
 module.exports = function (ctx) {
   return {
@@ -29,6 +30,9 @@ module.exports = function (ctx) {
 
       components: [
         'QBadge',
+        'QCarousel',
+        'QCarouselControl',
+        'QCarouselSlide',
         'QDate',
         'QField',
         'QLayout',
@@ -40,6 +44,7 @@ module.exports = function (ctx) {
         'QPopupProxy',
         'QSelect',
         'QSeparator',
+        'QScrollArea',
         'QTab',
         'QTabs',
         'QTabPanel',
@@ -54,18 +59,23 @@ module.exports = function (ctx) {
         'QItem',
         'QItemSection',
         'QItemLabel',
-        'QUploader'
+        'QUploader',
+        'QSlider',
+        'QFab',
+        'QPageSticky'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'TouchSwipe'
       ],
 
       // Quasar plugins
       plugins: [
         'Dialog',
         'Notify',
-        'Loading'
+        'Loading',
+        'Meta'
       ],
       config: {
         notify: {
@@ -84,12 +94,14 @@ module.exports = function (ctx) {
         ? { // so on dev we'll have
           API: JSON.stringify('http://localhost/churchnet/public/api'),
           WEB: JSON.stringify('http://localhost/churchnet/public'),
+          SYNOD: synod,
           VNOTES: vnotes,
           VERSION: version
         }
         : { // and on build (production):
           API: JSON.stringify('https://church.net.za/api'),
           WEB: JSON.stringify('https://church.net.za'),
+          SYNOD: synod,
           VNOTES: vnotes,
           VERSION: version
         },
@@ -130,7 +142,7 @@ module.exports = function (ctx) {
         // short_name: 'Quasar-PWA',
         // description: 'Best PWA App in town!',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'any',
         background_color: '#ffffff',
         theme_color: '#027be3',
         icons: [

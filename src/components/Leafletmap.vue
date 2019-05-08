@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%; height:300px;">
+  <div style="width:100%; height:px;">
     <l-map ref="map" :zoom="zoom" :center="center" :maxZoom="maxZoom" style="height: 300px; width: 100%">
       <l-control-layers />
       <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name" :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution" :token="token" :options="tileProvider.options" layerType="base"/>

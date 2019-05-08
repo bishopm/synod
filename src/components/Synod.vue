@@ -28,8 +28,8 @@
             <q-btn @click="submitAgenda" color="primary" label="OK"/><q-btn class="q-ml-md" @click="aexpanded = false" color="grey" label="Cancel"/>
           </div>
         </q-expansion-item>
-        <q-list v-if="synod.agendaitems">
-          <q-item v-for="agenda in synod.agendaitems" :key="agenda.id">
+        <q-list v-if="agendaitems">
+          <q-item v-for="agenda in agendaitems" :key="agenda.id">
             <q-item-section avatar>
               <div class="text-center">
                 <b>{{formatme(agenda.meetingdatetime).substring(11)}}</b><br>
@@ -82,6 +82,8 @@ export default {
       items: [],
       synod: {},
       tab: 'agenda',
+      documents: [],
+      agendaitems: [],
       agenda: {
         description: '',
         agendadate: '',
@@ -107,12 +109,12 @@ export default {
     },
     updateFilter () {
       if (this.search === '') {
-        this.filteredDocuments = this.synod.documents
+        this.filteredDocuments = this.documents
       } else {
         this.filteredDocuments = []
-        for (var dndx in this.synod.documents) {
-          if ((this.synod.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase())) || (this.synod.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase()))) {
-            this.filteredDocuments.push(this.synod.documents[dndx])
+        for (var dndx in this.documents) {
+          if ((this.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase())) || (this.documents[dndx].title.toLowerCase().includes(this.search.toLowerCase()))) {
+            this.filteredDocuments.push(this.documents[dndx])
           }
         }
       }
@@ -125,7 +127,7 @@ export default {
           agenda: this.agenda
         })
         .then(response => {
-          this.synod.agendaitems.push(response.data)
+          this.agendaitems.push(response.data)
         })
         .catch(function (error) {
           console.log(error)
@@ -141,9 +143,11 @@ export default {
       })
       .then(response => {
         this.synod = response.data.synod
+        this.documents = response.data.documents
+        this.agendaitems = response.data.agendaitems
         this.circuit = this.synod.circuit.circuit
         this.dateOptions = response.data.days
-        this.filteredDocuments = this.synod.documents
+        this.filteredDocuments = this.documents
         this.agenda.description = ''
         this.agenda.agendatime = ''
       })

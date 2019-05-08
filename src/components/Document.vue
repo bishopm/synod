@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted () {
-    this.src = 'http://localhost/churchnet/public/vendor/bishopm/docs/' + this.$route.params.src
+    this.src = process.env.WEB + '/vendor/bishopm/docs/' + this.$route.params.src
   }
 }
 </script>

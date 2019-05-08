@@ -16,7 +16,8 @@ export default function (/* { ssrContext } */) {
       token: null,
       district: 7,
       admin: false,
-      user: null
+      user: null,
+      zoom: 1
     },
     mutations: {
       setAdmin (state, newadmin) {
@@ -30,6 +31,9 @@ export default function (/* { ssrContext } */) {
       },
       setUser (state, newuser) {
         state.user = newuser
+      },
+      setZoom (state, newzoom) {
+        state.zoom = newzoom
       }
     },
     strict: process.env.DEV

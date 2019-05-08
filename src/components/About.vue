@@ -30,7 +30,8 @@ export default {
   data () {
     return {
       district: {},
-      blankpic: ''
+      blankpic: '',
+      url: ''
     }
   },
   mixins: [saveState],

@@ -30,8 +30,17 @@
             <q-icon name="fas fa-users" />
           </q-item-section>
           <q-item-section>
-            <q-item-label overline>{{synodyear}} Synod</q-item-label>
-            <q-item-label caption>Agenda and documents</q-item-label>
+            <q-item-label overline>Agenda & documents</q-item-label>
+            <q-item-label caption>{{synodyear}} Synod programme</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/bluebook">
+          <q-item-section avatar>
+            <q-icon name="fas fa-book" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>Blue book</q-item-label>
+            <q-item-label caption>View entire blue book</q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/circuits">
@@ -59,6 +68,15 @@
           <q-item-section>
             <q-item-label overline>Directory</q-item-label>
             <q-item-label caption>Ministers, deacons etc</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/journey">
+          <q-item-section avatar>
+            <q-icon name="fas fa-hiking" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>Journey</q-item-label>
+            <q-item-label caption>About the Journey App</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="$store.state.user && $store.state.user.user.id === 1" to="/settings">
@@ -98,6 +116,7 @@ export default {
     }
   },
   mounted () {
+    this.viewport = 'ppp'
     this.synodyear = new Date().getFullYear()
     if (localStorage.getItem('SYNOD_Version')) {
       if (localStorage.getItem('SYNOD_Version') !== process.env.VERSION) {

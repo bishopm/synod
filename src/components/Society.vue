@@ -9,8 +9,8 @@
         {{service.servicetime}} ({{service.language}})
       </p><br>
       <p v-if="noservices">No services have been added yet</p>
-      <div v-if="society.location.address"><q-icon name="fa fa-fw fa-map-marked-alt" class="text-red q-mr-md"></q-icon>{{society.location.address}}</div>
-      <div v-if="society.location.phone"><q-icon name="fa fa-fw fa-phone" class="text-red q-mr-md"></q-icon>{{society.location.phone}}</div>
+      <div v-if="society.location && society.location.address"><q-icon name="fa fa-fw fa-map-marked-alt" class="text-red q-mr-md"></q-icon>{{society.location.address}}</div>
+      <div v-if="society.location && society.location.phone"><q-icon name="fa fa-fw fa-phone" class="text-red q-mr-md"></q-icon>{{society.location.phone}}</div>
       <div v-if="society.website"><q-icon name="fa fa-fw fa-globe" class="text-red q-mr-md"></q-icon><a class="text-red" target="_blank" :href="society.website">{{society.website}}</a></div>
     </div>
   </div>
@@ -39,12 +39,8 @@ export default {
         }
         this.perm = this.$store.state.user.societies[this.society.id]
         if (this.society.website) {
-          if ((this.society.website) && (!this.society.website.includes('http'))) {
-            this.websiteurl = 'http://' + this.society.website
-          } else {
-            if (this.society.website) {
-              this.websiteurl = this.society.website
-            }
+          if (!this.society.website.includes('http')) {
+            this.society.website = 'http://' + this.society.website
           }
         }
       })
