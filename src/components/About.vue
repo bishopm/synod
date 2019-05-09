@@ -1,6 +1,6 @@
 <template>
   <div v-if="district" class="q-ma-md">
-    <div v-if="district.location" class="header text-center q-ma-md text-bold">Synod office</div>
+    <p v-if="district.location" class="header text-h5 text-center text-red q-mb-sm">Synod office</p>
     <leafletmap :latitude="district.location.latitude" :longitude="district.location.longitude" :popuplabel="district.district + ' ' + district.denomination.provincial + ' Office'" editable="no"></leafletmap>
     <p class="q-mt-md">
       <q-icon name="fa fa-fw fa-map-marked-alt" class="text-red q-mr-md"></q-icon>Address: {{district.location.address}}<br>

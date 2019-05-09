@@ -17,11 +17,15 @@ export default function (/* { ssrContext } */) {
       district: 7,
       admin: false,
       user: null,
+      feeds: null,
       zoom: 1
     },
     mutations: {
       setAdmin (state, newadmin) {
         state.admin = newadmin
+      },
+      setFeeds (state, newfeeds) {
+        state.feeds = newfeeds
       },
       setToken (state, newtoken) {
         state.token = newtoken

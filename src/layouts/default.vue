@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-toolbar>
+    <q-toolbar style="background-color: red;">
       <q-toolbar-title>
-        <router-link to="/" class="text-black" style="text-decoration:none;">
-          <img class="q-mr-md" src="/statics/icons/favicon-32x32.png"/>Natal Coastal Synod
+        <router-link to="/" class="text-white" style="text-decoration:none;">
+          <q-icon size="40px" name="img:/statics/redlogo.png" class="q-mr-md"/>Natal Coastal Synod
         </router-link>
       </q-toolbar-title>
-      <q-btn class="text-right text-red" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu">
+      <q-btn class="text-right text-white" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu">
         <q-icon name="fas fa-bars" />
       </q-btn>
     </q-toolbar>
@@ -116,7 +116,6 @@ export default {
     }
   },
   mounted () {
-    this.viewport = 'ppp'
     this.synodyear = new Date().getFullYear()
     if (localStorage.getItem('SYNOD_Version')) {
       if (localStorage.getItem('SYNOD_Version') !== process.env.VERSION) {

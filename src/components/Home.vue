@@ -29,6 +29,7 @@ export default {
     this.$axios.get(process.env.API + '/districts/map/' + this.$store.state.district)
       .then((response) => {
         this.district = response.data.district
+        this.$store.commit('setFeeds', response.data.feeds)
         this.welcome = 'Welcome to the ' + this.district.district + ' ' + this.district.denomination.provincial
       })
       .catch(function (error) {

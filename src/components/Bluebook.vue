@@ -1,14 +1,14 @@
 <template>
 <div>
-    <div class="row q-mt-md">
+    <div class="row q-mt-lg">
       <div class="col-auto q-mx-lg">
-        <q-btn size="sm" color="red" @click="down" icon="fa fa-caret-left"/>
+        <q-btn size="sm" color="black" @click="down" icon="fa fa-caret-left"/>
       </div>
       <div class="col">
         <q-slider label label-always v-model="slide" :min="1" :max="262"/>
       </div>
       <div class="col-auto q-mx-lg">
-        <q-btn size="sm" color="red" @click="up" icon="fa fa-caret-right"/>
+        <q-btn size="sm" color="black" @click="up" icon="fa fa-caret-right"/>
       </div>
     </div>
     <div>

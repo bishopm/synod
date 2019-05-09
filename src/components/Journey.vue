@@ -8,10 +8,14 @@
     <li>share last Sunday's sermon audio recording and blog post</li>
     <li>allow members to view and update their details</li>
     <li>remind preachers of their appointments</li>
+    <li>and more features are being added ...</li>
     <p class="q-my-md text-justify">As more and more of our members use the app, we're finding it's becoming a great way of building community - even when not everyone is able to be together in worship every Sunday, there is a growing sense that we are on a journey together.</p>
     <p class="text-justify">You're welcome to use the app too (there is no cost involved). Click the icon below to see it in action (it'll prompt you for your synod, circuit and society before you can explore the app).</p>
     <div class="q-mt-md text-center">
       <a href="https://journey.church.net.za" target="_blank"><img src="/statics/journey.png"/></a>
+      <div class="text-center text-bold">
+        <a class="text-red" href="https://journey.church.net.za" target="_blank">https://journey.church.net.za</a>
+      </div>
     </div>
   </div>
 </template>

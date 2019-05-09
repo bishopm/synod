@@ -1,7 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.2.3')
+var version = JSON.stringify('0.2.4')
 var synod = JSON.stringify('7')
-var vnotes = JSON.stringify('Image zoom fixed')
+var vnotes = JSON.stringify('Template changes')
 
 module.exports = function (ctx) {
   return {
