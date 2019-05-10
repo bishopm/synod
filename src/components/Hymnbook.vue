@@ -1,9 +1,17 @@
 <template>
-  <div class="q-ma-md">
-    <p class="header text-h5 text-center text-red q-mb-sm">Synod hymnbook</p>
-    <q-list>
-      <q-item v-for="(feed, ndx) in feeds" :key="ndx" :to="'/hymnbook/' + ndx">{{feed.feedpost.title}}</q-item>
-    </q-list>
+  <div>
+    <q-tabs v-model="selectedTab" active-color="white" indicator-color="primary" class="no-border bg-black text-white">
+      <q-tab name="songPanel">Hymns</q-tab>
+      <q-tab name="liturgyPanel">Liturgy</q-tab>
+    </q-tabs>
+    <q-tab-panels v-model="selectedTab" animated class="q-ma-sm">
+      <q-tab-panel name="songPanel" class="no-border">
+        <q-item v-for="song in songs" :key="song.id" :to="'/hymnbook/' + song.id">{{song.post.title}}</q-item>
+      </q-tab-panel>
+      <q-tab-panel name="liturgyPanel" class="no-border">
+        <q-item v-for="liturgy in liturgies" :key="liturgy.id" :to="'/hymnbook/' + liturgy.id">{{liturgy.post.title}}</q-item>
+      </q-tab-panel>
+    </q-tab-panels>
   </div>
 </template>
 
@@ -11,11 +19,27 @@
 export default {
   data () {
     return {
-      feeds: []
+      songs: [],
+      liturgies: [],
+      selectedTab: ''
+    }
+  },
+  computed: {
+    allSongs: function () {
+      return this.feeds.filter(function (item) {
+        return item.feedposnumber % 2 === 0
+      })
     }
   },
   mounted () {
-    this.feeds = this.$store.state.feeds
+    for (var fndx in this.$store.state.feeds) {
+      if (this.$store.state.feeds[fndx].feedpost.category === 'liturgy') {
+        this.liturgies.push({ id: fndx, post: this.$store.state.feeds[fndx].feedpost })
+      } else {
+        this.songs.push({ id: fndx, post: this.$store.state.feeds[fndx].feedpost })
+      }
+    }
+    this.selectedTab = 'songPanel'
   }
 }
 </script>
