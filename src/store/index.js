@@ -14,6 +14,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     state: {
       token: null,
+      bluebook: null,
       district: 7,
       admin: false,
       user: null,
@@ -23,6 +24,9 @@ export default function (/* { ssrContext } */) {
     mutations: {
       setAdmin (state, newadmin) {
         state.admin = newadmin
+      },
+      setBluebook (state, newbluebook) {
+        state.bluebook = newbluebook
       },
       setFeeds (state, newfeeds) {
         state.feeds = newfeeds

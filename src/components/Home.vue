@@ -30,6 +30,7 @@ export default {
       .then((response) => {
         this.district = response.data.district
         this.$store.commit('setFeeds', response.data.feeds)
+        this.$store.commit('setBluebook', response.data.bluebook)
         this.welcome = 'Welcome to the ' + this.district.district + ' ' + this.district.denomination.provincial
       })
       .catch(function (error) {

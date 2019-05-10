@@ -54,16 +54,8 @@ export default {
     }
   },
   mounted () {
-    var itxt = ''
-    for (var i = 1; i < 263; i = i + 1) {
-      if (i < 10) {
-        itxt = process.env.WEB + '/vendor/bishopm/images/bluebook/00' + i + '.jpg'
-      } else if (i < 100) {
-        itxt = process.env.WEB + '/vendor/bishopm/images/bluebook/0' + i + '.jpg'
-      } else {
-        itxt = process.env.WEB + '/vendor/bishopm/images/bluebook/' + i + '.jpg'
-      }
-      this.slides.push(itxt)
+    for (var bb in this.$store.state.bluebook) {
+      this.slides.push(process.env.WEB + '/vendor/bishopm/images/bluebook/' + this.$store.state.bluebook[bb])
     }
   }
 }
