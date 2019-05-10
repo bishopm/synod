@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-toolbar style="background-color: red;">
       <q-toolbar-title>
-        <router-link to="/" class="text-white" style="text-decoration:none;">
+        <router-link to="/" class="text-white text-bold" style="text-decoration:none;">
           <q-icon size="40px" name="img:/statics/redlogo.png" class="q-mr-md"/>Natal Coastal Synod
         </router-link>
       </q-toolbar-title>
@@ -67,7 +67,7 @@
           </q-item-section>
           <q-item-section>
             <q-item-label overline>Directory</q-item-label>
-            <q-item-label caption>Ministers, deacons etc</q-item-label>
+            <q-item-label caption>Deacons and Ministers</q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/hymnbook">
