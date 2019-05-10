@@ -1,7 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.2.4')
+var version = JSON.stringify('0.2.5')
 var synod = JSON.stringify('7')
-var vnotes = JSON.stringify('Template changes')
+var vnotes = JSON.stringify('Hymn book')
 
 module.exports = function (ctx) {
   return {

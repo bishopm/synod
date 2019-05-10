@@ -1,6 +1,9 @@
 <template>
   <div class="q-ma-md">
-    <p v-html="hymn.feedpost[0].body"></p>
+    <div v-if="hymn.feedpost" class="q-mx-md">
+      <p class="text-center bg-secondary q-pa-sm text-white text-bold">{{hymn.feedpost.title}}</p>
+      <p v-html="hymn.feedpost.body"></p>
+    </div>
   </div>
 </template>
 

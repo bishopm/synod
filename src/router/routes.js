@@ -16,7 +16,6 @@ const routes = [
       { name: 'hymn', path: '/hymnbook/:id', component: () => import('components/Hymn') },
       { name: 'journey', path: '/journey', component: () => import('components/Journey') },
       { name: 'phoneverification', path: '/phoneverification', component: () => import('components/Phoneverification') },
-      { name: 'settings', path: '/settings', component: () => import('components/Settings') },
       { name: 'society', path: '/societies/:id', component: () => import('components/Society') },
       { name: 'synod', path: '/synods/:year', component: () => import('components/Synod') }
     ]

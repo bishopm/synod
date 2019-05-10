@@ -70,6 +70,15 @@
             <q-item-label caption>Ministers, deacons etc</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item to="/hymnbook">
+          <q-item-section avatar>
+            <q-icon name="fas fa-music" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>Hymnbook</q-item-label>
+            <q-item-label caption>Songs and liturgy</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item to="/journey">
           <q-item-section avatar>
             <q-icon name="fas fa-hiking" />
@@ -77,15 +86,6 @@
           <q-item-section>
             <q-item-label overline>Journey</q-item-label>
             <q-item-label caption>About the Journey App</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item v-if="$store.state.user && $store.state.user.user.id === 1" to="/settings">
-          <q-item-section avatar>
-            <q-icon name="fas fa-cog" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label overline>Settings</q-item-label>
-            <q-item-label caption>settings for site</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="!$store.state.user" to="/phoneverification">
