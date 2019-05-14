@@ -1,7 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.2.5')
+var version = JSON.stringify('0.2.7')
 var synod = JSON.stringify('7')
-var vnotes = JSON.stringify('Hymn book')
+var vnotes = JSON.stringify('Allow admin to update blue book and hymnbook')
 
 module.exports = function (ctx) {
   return {
@@ -34,7 +34,9 @@ module.exports = function (ctx) {
         'QCarouselControl',
         'QCarouselSlide',
         'QDate',
+        'QEditor',
         'QField',
+        'QForm',
         'QLayout',
         'QHeader',
         'QExpansionItem',

@@ -79,6 +79,17 @@
             <q-item-label caption>Songs and liturgy</q-item-label>
           </q-item-section>
         </q-item>
+        <q-separator class="q-my-md"/>
+        <q-item v-if="$store.state.user && $store.state.user.admin === true" to="/addcontent">
+          <q-item-section avatar>
+            <q-icon name="fas fa-plus" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>Add content</q-item-label>
+            <q-item-label caption>Administrator section</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator v-if="$store.state.user && $store.state.user.admin === true" class="q-my-md"/>
         <q-item to="/journey">
           <q-item-section avatar>
             <q-icon name="fas fa-hiking" />

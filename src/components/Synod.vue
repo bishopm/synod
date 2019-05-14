@@ -61,9 +61,8 @@
           </q-item>
         </q-list>
       </q-tab-panel>
-
       <q-tab-panel name="resolutions">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Details of resolutions and current progress to come here
       </q-tab-panel>
     </q-tab-panels>
   </div>

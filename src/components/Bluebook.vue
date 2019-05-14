@@ -5,14 +5,14 @@
         <q-btn size="sm" color="black" @click="down" icon="fa fa-caret-left"/>
       </div>
       <div class="col">
-        <q-slider label label-always v-model="slide" :min="1" :max="262"/>
+        <q-slider label label-always v-model="slide" :min="1" :max="this.$store.state.bluebook.length"/>
       </div>
       <div class="col-auto q-mx-lg">
         <q-btn size="sm" color="black" @click="up" icon="fa fa-caret-right"/>
       </div>
     </div>
     <div>
-      <img :width="zoom + '%'" :src="slides[slide+1]" v-touch-swipe.mouse.left.right="handleSwipe">
+      <img :width="zoom + '%'" :src="slides[slide-1]" v-touch-swipe.mouse.left.right="handleSwipe">
       <q-page-sticky position="bottom-right" :offset="[64, 12]">
         <span class="text-grey text-bold q-mr-sm">{{zoom}}%</span>
         <q-btn @click="zoom = zoom + 20" round size="md" icon="fa fa-search-plus" color="primary" />
@@ -41,7 +41,7 @@ export default {
       }
     },
     up () {
-      if (this.slide !== 262) {
+      if (this.slide !== this.$store.state.bluebook.length) {
         this.slide = this.slide + 1
       }
     },
