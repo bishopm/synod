@@ -1,7 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.2.7')
+var version = JSON.stringify('0.2.8')
 var synod = JSON.stringify('7')
-var vnotes = JSON.stringify('Allow admin to update blue book and hymnbook')
+var vnotes = JSON.stringify('Allow admin to upload pdfs')
 
 module.exports = function (ctx) {
   return {
