@@ -6,13 +6,15 @@
     </q-tabs>
     <q-tab-panels v-model="selectedTab" animated class="q-ma-sm">
       <q-tab-panel name="bluebook" class="no-border">
-        <div class="text-justify">
-          Locate an image on your device and click upload - it will be appended to the end of the Blue Book.
-        </div>
-        <q-input class="q-mt-md" outlined type="file" id="file" ref="file" />
-        <div class="q-ma-md text-center">
-          <q-btn type="button" @click="uploadFile">Upload file</q-btn>
-        </div>
+        <q-form ref="bbform" @submit="submitbb">
+          <div class="text-justify">
+            Locate an image on your device and click upload - it will be appended to the end of the Blue Book.
+          </div>
+          <q-input class="q-mt-md" outlined type="file" ref="bbfile" id="bbfile"/>
+          <div class="q-ma-md text-center">
+            <q-btn type="button" @click="uploadFile">Upload file</q-btn>
+          </div>
+        </q-form>
       </q-tab-panel>
       <q-tab-panel name="hymnbook" class="no-border">
         <q-form ref="hymnform" @submit="submithymn">
@@ -61,7 +63,7 @@ export default {
         })
     },
     uploadFile () {
-      this.file = this.$refs.file.files[0]
+      this.file = this.$refs.bbfile.$refs.input.files[0]
       let formData = new FormData()
       formData.append('file', this.file)
       this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token

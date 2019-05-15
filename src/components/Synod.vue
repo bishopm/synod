@@ -4,7 +4,6 @@
     <q-tabs v-model="tab" dense class="text-grey q-mt-md" active-color="primary" indicator-color="primary" align="justify" narrow-indicator>
       <q-tab name="agenda" label="Agenda" />
       <q-tab name="documents" label="Documents" />
-      <q-tab name="resolutions" label="Resolutions" />
     </q-tabs>
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="agenda">
@@ -51,25 +50,26 @@
             <q-input outlined hide-bottom-space error-message="Document title is required" label="Title" v-model="doc.title" />
           </div>
           <div class="q-ma-md">
-            <q-uploader :url="url" name="doc" :multiple="false" color="red" flat bordered style="width: 100%"/>
+            <q-input class="q-mt-md" outlined type="file" id="docfile" ref="docfile" />
+            <div class="q-ma-md text-center">
+              <q-btn type="button" @click="uploadFile">Upload file</q-btn>
+            </div>
           </div>
         </q-expansion-item>
         <div class="col-12 q-mx-md"><q-input autofocus placeholder="Search for a document" @input="updateFilter" v-model="search" /></div>
         <q-list>
           <q-item v-for="document in filteredDocuments" :key="document.id" :to="'/document/' + document.url">
-            {{document.title}}
+            <q-item-section>
+              {{document.title}}
+            </q-item-section>
           </q-item>
         </q-list>
-      </q-tab-panel>
-      <q-tab-panel name="resolutions">
-        Details of resolutions and current progress to come here
       </q-tab-panel>
     </q-tab-panels>
   </div>
 </template>
 
 <script>
-import saveState from 'vue-save-state'
 export default {
   data () {
     return {
@@ -78,6 +78,7 @@ export default {
       dateOptions: [],
       dexpanded: false,
       filteredDocuments: [],
+      file: null,
       items: [],
       synod: {},
       tab: 'agenda',
@@ -88,23 +89,19 @@ export default {
         agendadate: '',
         agendatime: ''
       },
-      doc: {},
-      search: '',
-      url: process.env.API + '/documents/upload'
+      doc: {
+        title: ''
+      },
+      search: ''
     }
   },
   methods: {
-    getSaveStateConfig () {
-      return {
-        'cacheKey': 'Synod_Save_Synod'
-      }
-    },
     formatme (datein) {
       var fin = new Date(datein * 1000)
       return fin.toString().substring(4, 21)
     },
-    addContent () {
-      console.log('adding')
+    deleteme () {
+      console.log('deleting')
     },
     updateFilter () {
       if (this.search === '') {
@@ -116,6 +113,31 @@ export default {
             this.filteredDocuments.push(this.documents[dndx])
           }
         }
+      }
+    },
+    uploadFile () {
+      if (this.doc.title) {
+        this.file = this.$refs.docfile.$refs.input.files[0]
+        let formData = new FormData()
+        formData.append('file', this.file)
+        formData.append('title', this.doc.title)
+        formData.append('synod_id', 1)
+        this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
+        this.$axios.post(process.env.API + '/synoddocs', formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(response => {
+            this.$q.notify('Document has been uploaded')
+            this.documents.push(response.data)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      } else {
+        this.$q.notify('Title may not be blank!')
       }
     },
     submitAgenda () {
@@ -133,8 +155,8 @@ export default {
         })
     }
   },
-  mixins: [saveState],
   mounted () {
+    this.doc = {}
     this.$axios.post(process.env.API + '/synods',
       {
         district: this.$store.state.district,

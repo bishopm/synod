@@ -1,6 +1,6 @@
 <template>
-  <div class="container q-pa-lg">
-    <q-pdfviewer v-model="show" :src="src" content-class="absolute"/>
+  <div class="q-page flex flex-center" style="min-height: calc(100vh - 98px);">
+    <q-pdfviewer class="q-pdfviewer absolute" style="width:94%;" v-model="show" :src="src"/>
   </div>
 </template>
 
@@ -19,12 +19,4 @@ export default {
 </script>
 
 <style>
-.container {
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 400px;
-  min-height: 600px;
-  width: 100%;
-  height: 100%;
-}
 </style>

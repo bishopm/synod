@@ -6,7 +6,7 @@
     </q-tabs>
     <q-tab-panels v-model="selectedTab" animated class="q-ma-sm">
       <q-tab-panel name="songPanel" class="no-border">
-        <q-item v-for="song in songs" :key="song.id" :to="'/hymnbook/' + song.id">{{song.post.title}}</q-item>
+        <q-item v-for="(song, ndx) in songs" :key="song.id" :to="'/hymnbook/' + song.id">{{ndx+1}}. {{song.post.title}}</q-item>
       </q-tab-panel>
       <q-tab-panel name="liturgyPanel" class="no-border">
         <q-item v-for="liturgy in liturgies" :key="liturgy.id" :to="'/hymnbook/' + liturgy.id">{{liturgy.post.title}}</q-item>
