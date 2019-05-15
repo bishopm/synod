@@ -1,7 +1,7 @@
 // Configuration for your app
-var version = JSON.stringify('0.2.8')
+var version = JSON.stringify('0.3')
 var synod = JSON.stringify('7')
-var vnotes = JSON.stringify('Allow admin to upload pdfs')
+var vnotes = JSON.stringify('Fix login spinner')
 
 module.exports = function (ctx) {
   return {

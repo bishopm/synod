@@ -12,6 +12,7 @@ const routes = [
       { name: 'diary', path: '/diary', component: () => import('components/Diary') },
       { name: 'directory', path: '/directory', component: () => import('components/Directory') },
       { name: 'document', path: '/document/:src', component: () => import('components/Document') },
+      { name: 'help', path: '/help', component: () => import('components/Help') },
       { name: 'home', path: '/', component: () => import('components/Home') },
       { name: 'hymnbook', path: '/hymnbook', component: () => import('components/Hymnbook') },
       { name: 'hymn', path: '/hymnbook/:id', component: () => import('components/Hymn') },

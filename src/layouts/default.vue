@@ -16,15 +16,6 @@
     <q-drawer side="right" v-model="rightDrawerOpen" bordered content-class="bg-grey-2">
       <q-list>
         <q-item-label v-if="$store.state.user" class="text-center bg-black text-white q-pa-md">{{$store.state.user.user.name}}</q-item-label>
-        <q-item to="/about">
-          <q-item-section avatar>
-            <q-icon name="fas fa-info-circle" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label overline>About</q-item-label>
-            <q-item-label caption>About our synod</q-item-label>
-          </q-item-section>
-        </q-item>
         <q-item :to="'/synods/' + synodyear">
           <q-item-section avatar>
             <q-icon name="fas fa-users" />
@@ -79,7 +70,16 @@
             <q-item-label caption>Songs and liturgy</q-item-label>
           </q-item-section>
         </q-item>
-        <q-separator class="q-my-md"/>
+        <q-item to="/about">
+          <q-item-section avatar>
+            <q-icon name="fas fa-info-circle" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label overline>Natal Coastal Synod</q-item-label>
+            <q-item-label caption>About our synod</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator class="q-my-sm"/>
         <q-item v-if="$store.state.user && $store.state.user.admin === true" to="/addcontent">
           <q-item-section avatar>
             <q-icon name="fas fa-plus" />
@@ -89,14 +89,14 @@
             <q-item-label caption>Administrator section</q-item-label>
           </q-item-section>
         </q-item>
-        <q-separator v-if="$store.state.user && $store.state.user.admin === true" class="q-my-md"/>
-        <q-item to="/journey">
+        <q-separator v-if="$store.state.user && $store.state.user.admin === true" class="q-my-sm"/>
+        <q-item to="/help">
           <q-item-section avatar>
-            <q-icon name="fas fa-hiking" />
+            <q-icon name="fas fa-question-circle" />
           </q-item-section>
           <q-item-section>
-            <q-item-label overline>Journey</q-item-label>
-            <q-item-label caption>About the Journey App</q-item-label>
+            <q-item-label overline>About this app</q-item-label>
+            <q-item-label caption>Help and feedback</q-item-label>
           </q-item-section>
         </q-item>
         <q-item v-if="!$store.state.user" to="/phoneverification">
@@ -113,6 +113,7 @@
 </template>
 
 <script>
+import saveState from 'vue-save-state'
 export default {
   name: 'MyLayout',
   data () {
@@ -121,9 +122,15 @@ export default {
       synodyear: ''
     }
   },
+  mixins: [saveState],
   methods: {
     logout () {
       this.$store.commit('setUser', null)
+    },
+    getSaveStateConfig () {
+      return {
+        'cacheKey': 'Synod_Save_Startup'
+      }
     }
   },
   mounted () {
@@ -145,29 +152,40 @@ export default {
     } else {
       localStorage.setItem('SYNOD_Version', process.env.VERSION)
     }
-    if ((localStorage.getItem('SYNOD_phonetoken')) && (localStorage.getItem('SYNOD_verifiedphone'))) {
-      this.$q.loading.show({
-        message: 'Welcome! Logging you in...',
-        messageColor: 'white',
-        spinnerSize: 250, // in pixels
-        spinnerColor: 'white'
+    this.$q.loading.show({
+      message: 'Logging you in and checking for new content',
+      messageColor: 'white',
+      spinnerSize: 250, // in pixels
+      spinnerColor: 'white'
+    })
+    this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
+    this.$axios.get(process.env.API + '/districts/map/' + this.$store.state.district)
+      .then((response) => {
+        this.$store.commit('setFeeds', response.data.feeds)
+        this.$store.commit('setBluebook', response.data.bluebook)
+        if ((localStorage.getItem('SYNOD_phonetoken')) && (localStorage.getItem('SYNOD_verifiedphone'))) {
+          this.$axios.post(process.env.API + '/synodlogin',
+            {
+              phone: localStorage.getItem('SYNOD_verifiedphone'),
+              phonetoken: localStorage.getItem('SYNOD_phonetoken')
+            })
+            .then((response) => {
+              this.$store.commit('setUser', response.data)
+              this.$store.commit('setAdmin', response.data.admin)
+              this.$store.commit('setToken', response.data.token)
+              this.$q.loading.hide()
+            })
+            .catch(function (error) {
+              console.log(error)
+              this.$q.loading.hide()
+            })
+        } else {
+          this.$q.loading.hide()
+        }
       })
-      this.$axios.post(process.env.API + '/synodlogin',
-        {
-          phone: localStorage.getItem('SYNOD_verifiedphone'),
-          phonetoken: localStorage.getItem('SYNOD_phonetoken')
-        })
-        .then((response) => {
-          this.$store.commit('setUser', response.data)
-          this.$store.commit('setAdmin', response.data.admin)
-          this.$store.commit('setToken', response.data.token)
-          this.$q.loading.hide()
-        })
-        .catch(function (error) {
-          console.log(error)
-          this.$q.loading.hide()
-        })
-    }
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 }
 </script>

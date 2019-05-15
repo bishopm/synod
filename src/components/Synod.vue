@@ -7,7 +7,7 @@
     </q-tabs>
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="agenda">
-        <q-expansion-item v-if="$store.state.admin" v-model="aexpanded" class="text-center text-red" label="Add new agenda item">
+        <q-expansion-item v-if="$store.state.user.admin" v-model="aexpanded" class="text-center text-red" label="Add new agenda item">
           <div class="q-ma-md">
             <q-input outlined hide-bottom-space error-message="Description is required" label="Description" v-model="agenda.description" />
           </div>
@@ -45,7 +45,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="documents">
-        <q-expansion-item v-if="$store.state.admin" v-model="dexpanded" class="text-center text-red" label="Add new document">
+        <q-expansion-item v-if="$store.state.user.admin" v-model="dexpanded" class="text-center text-red" label="Add new document">
           <div class="q-ma-md">
             <q-input outlined hide-bottom-space error-message="Document title is required" label="Title" v-model="doc.title" />
           </div>

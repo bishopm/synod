@@ -45,4 +45,9 @@ export default {
 </script>
 
 <style>
+.q-item {
+  min-height: 16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
 </style>

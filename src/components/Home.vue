@@ -8,34 +8,11 @@
 </template>
 
 <script>
-import saveState from 'vue-save-state'
 export default {
   data () {
     return {
-      welcome: '',
-      district: {}
+      welcome: 'Welcome to the Natal Coastal Synod'
     }
-  },
-  mixins: [saveState],
-  methods: {
-    getSaveStateConfig () {
-      return {
-        'cacheKey': 'Synod_Save_Home'
-      }
-    }
-  },
-  mounted () {
-    this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
-    this.$axios.get(process.env.API + '/districts/map/' + this.$store.state.district)
-      .then((response) => {
-        this.district = response.data.district
-        this.$store.commit('setFeeds', response.data.feeds)
-        this.$store.commit('setBluebook', response.data.bluebook)
-        this.welcome = 'Welcome to the ' + this.district.district + ' ' + this.district.denomination.provincial
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
   }
 }
 </script>
