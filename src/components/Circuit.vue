@@ -11,10 +11,11 @@
           <q-badge class="q-pa-xs q-ma-xs" v-for="society in circuit.societies" :key="society.id">
             <router-link class="text-white" :to="'/societies/' + society.id">{{society.society}}</router-link>
           </q-badge>
+          <q-badge v-if="circuit.societies" class="q-pa-xs q-ma-xs bg-secondary"><router-link class="text-white" :to="'/addsociety/' + circuit.id">Don't see your society? Add it!</router-link></q-badge>
         </q-list>
       </div>
       <div class="col col-xs-12 col-sm-12 col-md-6">
-        <q-item-label class="text-center" v-if="circuit.ministers.length" header>Staff</q-item-label>
+        <q-item-label class="text-center" v-if="circuit.ministers && circuit.ministers.length" header>Staff</q-item-label>
         <q-list>
           <q-item class="compact" v-for="minister in ministers" :key="minister">
             {{minister}}

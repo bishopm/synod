@@ -5,6 +5,7 @@ const routes = [
     component: () => import('layouts/default.vue'),
     children: [
       { name: 'addcontent', path: '/addcontent', component: () => import('components/Addcontent') },
+      { name: 'addsociety', path: '/addsociety/:id', component: () => import('components/Addsociety') },
       { name: 'about', path: '/about', component: () => import('components/About') },
       { name: 'bluebook', path: '/bluebook', component: () => import('components/Bluebook') },
       { name: 'circuit', path: '/circuits/:id', component: () => import('components/Circuit') },
